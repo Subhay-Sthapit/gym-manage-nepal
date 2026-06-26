@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitTrack Nepal — UI Mockups</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --brand:#8B3D2E; --brand-dk:#6E2F23; --accent:#2E75B6;
+  --ok:#2E7D32; --warn:#ED6C02; --danger:#C62828;
+  --page:#F7F3F0; --surface:#FFFFFF; --ink:#26201D; --muted:#7d736d;
+  --line:#e7ddd6; --pill-bg:#f2e9e4;
+  --shadow:0 1px 3px rgba(60,30,20,.08),0 8px 24px rgba(60,30,20,.06);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:#efe7e1;color:var(--ink);font-size:14px;line-height:1.5}
+h1,h2,h3,h4{font-family:Lora,serif;margin:0}
+.app{display:flex;min-height:100vh}
+
+/* ---- nav rail ---- */
+.rail{width:230px;background:#2a1c17;color:#e9ddd6;flex:0 0 230px;padding:0;position:sticky;top:0;height:100vh;overflow-y:auto}
+.rail .logo{padding:22px 20px 14px;font-family:Lora;font-weight:700;font-size:20px;color:#fff;letter-spacing:.3px}
+.rail .logo span{color:#e0a08f}
+.rail .grp{padding:14px 20px 6px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9c8a80}
+.rail a{display:flex;gap:10px;align-items:center;padding:9px 20px;color:#d8cabf;text-decoration:none;font-size:13.5px;border-left:3px solid transparent;cursor:pointer}
+.rail a:hover{background:#34231c;color:#fff}
+.rail a.active{background:#3c281f;color:#fff;border-left-color:var(--brand);font-weight:600}
+.rail a .ic{width:16px;text-align:center;opacity:.85}
+
+/* ---- stage ---- */
+.stage{flex:1;background:var(--page);overflow:hidden}
+.screen{display:none;animation:fade .25s ease}
+.screen.show{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* topbar */
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 26px;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .crumb{font-size:12px;color:var(--muted)}
+.top .ttl{font-family:Lora;font-size:20px;font-weight:600;color:var(--ink)}
+.top .who{display:flex;align-items:center;gap:10px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:600;font-size:13px}
+.body{padding:26px}
+
+/* generic bits */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.pad{padding:18px 20px}
+.row{display:flex;gap:18px;flex-wrap:wrap}
+.grid{display:grid;gap:18px}
+.btn{background:var(--brand);color:#fff;border:none;padding:9px 16px;border-radius:8px;font-weight:600;font-size:13px;cursor:pointer;font-family:Inter}
+.btn:hover{background:var(--brand-dk)}
+.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.btn.sm{padding:6px 11px;font-size:12px}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:600}
+.pill.ok{background:#e3f1e4;color:var(--ok)}
+.pill.warn{background:#fcecd9;color:var(--warn)}
+.pill.dng{background:#fae2e2;color:var(--danger)}
+.pill.info{background:#e2eef8;color:var(--accent)}
+.pill.mut{background:var(--pill-bg);color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:11px 14px;background:#f4ece7;color:#7a6a60;font-weight:600;font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;position:sticky;top:0}
+td{padding:11px 14px;border-top:1px solid var(--line)}
+tr:hover td{background:#faf6f3}
+.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.kpi{flex:1;min-width:180px}
+.kpi .v{font-family:Lora;font-size:30px;font-weight:700;margin-top:6px}
+.kpi .d{font-size:12px;margin-top:4px}
+.up{color:var(--ok)} .down{color:var(--danger)}
+.bar{height:8px;background:#eee;border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brand)}
+.muted{color:var(--muted)}
+.sec-title{font-family:Lora;font-size:16px;font-weight:600;margin-bottom:14px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:#6a5d56;margin-bottom:5px}
+.field input,.field select{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;font-size:13px;font-family:Inter;background:#fff}
+.note{font-size:12px;color:var(--muted)}
+.divider{height:1px;background:var(--line);margin:16px 0}
+.tabbar{display:flex;gap:4px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.tabbar div{padding:9px 14px;font-size:13px;color:var(--muted);font-weight:600;border-bottom:2px solid transparent}
+.tabbar div.on{color:var(--brand);border-bottom-color:var(--brand)}
+
+/* qr block */
+.qr{width:150px;height:150px;border-radius:10px;background:
+  repeating-linear-gradient(90deg,#26201d 0 7px,#fff 7px 14px),
+  repeating-linear-gradient(0deg,#26201d 0 7px,transparent 7px 14px);
+  background-blend-mode:multiply;border:6px solid #fff;box-shadow:var(--shadow)}
+
+/* kiosk */
+.kiosk{min-height:calc(100vh - 0px);background:radial-gradient(circle at 50% 20%,#3c281f,#1c120e);display:grid;place-items:center;color:#fff;padding:40px}
+.scanbox{width:300px;height:300px;border-radius:20px;border:3px dashed #c98c79;display:grid;place-items:center;position:relative;background:rgba(255,255,255,.04)}
+.scanline{position:absolute;left:14px;right:14px;height:3px;background:#e0a08f;box-shadow:0 0 14px #e0a08f;animation:scan 2.2s linear infinite}
+@keyframes scan{0%{top:16px}50%{top:280px}100%{top:16px}}
+.confirm{margin-top:26px;text-align:center}
+.confirm .ph{width:80px;height:80px;border-radius:50%;background:#5c4035;display:grid;place-items:center;font-size:30px;margin:0 auto 12px}
+
+/* member shell (phone-ish) */
+.phone{max-width:420px;margin:0 auto}
+.mhead{background:var(--brand);color:#fff;padding:20px;border-radius:0 0 18px 18px}
+.mtabs{display:flex;justify-content:space-around;background:#fff;border-top:1px solid var(--line);padding:8px 0;position:sticky;bottom:0;border-radius:14px;margin-top:18px;box-shadow:var(--shadow)}
+.mtabs div{font-size:11px;color:var(--muted);text-align:center}
+.mtabs div.on{color:var(--brand);font-weight:700}
+.mtabs div .ic{display:block;font-size:17px;margin-bottom:2px}
+
+.legend{padding:10px 26px;background:#fbf7f4;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}
+@media(max-width:760px){.rail{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="rail">
+    <div class="logo">FitTrack<span>•</span>Nepal</div>
+    <div class="grp">Platform Owner</div>
+    <a data-s="p_gyms"><span class="ic">⌂</span> Gyms (tenants)</a>
+    <a data-s="p_create"><span class="ic">＋</span> Create / Edit gym</a>
+    <a data-s="p_overview"><span class="ic">▲</span> Cross-gym overview</a>
+    <div class="grp">Admin / Staff (per gym)</div>
+    <a data-s="login" class="active"><span class="ic">→</span> Login</a>
+    <a data-s="dash"><span class="ic">▦</span> Dashboard</a>
+    <a data-s="members"><span class="ic">☰</span> Members</a>
+    <a data-s="member"><span class="ic">＋</span> Register / Detail</a>
+    <a data-s="plans"><span class="ic">◷</span> Plans & Subs</a>
+    <a data-s="kiosk"><span class="ic">⤓</span> Check-in Kiosk</a>
+    <a data-s="attend"><span class="ic">✓</span> Attendance</a>
+    <a data-s="pay"><span class="ic">₨</span> Payments</a>
+    <a data-s="dues"><span class="ic">!</span> Dues / Chase</a>
+    <a data-s="reports"><span class="ic">▲</span> Reports</a>
+    <a data-s="templates"><span class="ic">✉</span> Notifications</a>
+    <div class="grp">Member Portal</div>
+    <a data-s="m_dash"><span class="ic">●</span> My Dashboard</a>
+    <a data-s="m_qr"><span class="ic">▢</span> My QR</a>
+    <a data-s="m_attend"><span class="ic">✓</span> My Attendance</a>
+    <a data-s="m_pay"><span class="ic">₨</span> My Payments</a>
+    <a data-s="m_notif"><span class="ic">✉</span> Notifications</a>
+    <a data-s="m_profile"><span class="ic">☺</span> My Profile</a>
+  </nav>
+
+  <main class="stage">
+
+  <!-- ===== PLATFORM: GYMS LIST ===== -->
+  <section class="screen" id="p_gyms">
+    <div class="top"><div><div class="crumb">Platform Owner · central layer</div><div class="ttl">Gyms (tenants)</div></div>
+      <div class="who"><button class="btn" onclick="go('p_create')">+ Onboard gym</button><div class="avatar" style="background:#2a1c17">PO</div></div></div>
+    <div class="legend">This layer sits ABOVE every gym. The Platform Owner never appears inside a gym's member data. Cross-gym reads here are audited.</div>
+    <div class="body">
+      <div class="row" style="margin-bottom:16px">
+        <div class="card pad kpi"><div class="label">Total gyms</div><div class="v">7</div><div class="d up">▲ 2 this month</div></div>
+        <div class="card pad kpi"><div class="label">Active</div><div class="v">6</div></div>
+        <div class="card pad kpi"><div class="label">Suspended</div><div class="v" style="color:var(--danger)">1</div></div>
+        <div class="card pad kpi"><div class="label">Platform MRR</div><div class="v">₨ 49,000</div></div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Gym</th><th>Subdomain</th><th>Members</th><th>Platform plan</th><th>Billing</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>FlexFitness</td><td>flexfitness.fittrack.np</td><td>312</td><td>Pro</td><td>Paid</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost" onclick="go('p_create')">Manage</button></td></tr>
+            <tr><td>PowerZone Gym</td><td>powerzone.fittrack.np</td><td>188</td><td>Pro</td><td>Paid</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost" onclick="go('p_create')">Manage</button></td></tr>
+            <tr><td>Iron Temple</td><td>irontemple.fittrack.np</td><td>96</td><td>Starter</td><td>Trial</td><td><span class="pill info">Trial</span></td><td><button class="btn sm ghost" onclick="go('p_create')">Manage</button></td></tr>
+            <tr><td>Himalaya Fitness</td><td>himalaya.fittrack.np</td><td>241</td><td>Pro</td><td>Paid</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost" onclick="go('p_create')">Manage</button></td></tr>
+            <tr><td>CoreLab</td><td>corelab.fittrack.np</td><td>54</td><td>Starter</td><td>Overdue</td><td><span class="pill dng">Suspended</span></td><td><button class="btn sm ghost" onclick="go('p_create')">Manage</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLATFORM: CREATE / EDIT GYM ===== -->
+  <section class="screen" id="p_create">
+    <div class="top"><div><div class="crumb">Platform Owner › Gyms</div><div class="ttl">Onboard / edit gym</div></div>
+      <div class="who"><div class="avatar" style="background:#2a1c17">PO</div></div></div>
+    <div class="body">
+      <div class="row">
+        <div class="card pad" style="flex:2;min-width:340px">
+          <div class="sec-title">Gym details</div>
+          <div class="row">
+            <div style="flex:1"><div class="field"><label>Gym name</label><input value="FlexFitness"></div>
+              <div class="field"><label>Subdomain</label><input value="flexfitness"><div class="note">→ flexfitness.fittrack.np · must be globally unique</div></div>
+              <div class="field"><label>Contact phone</label><input value="01-XXXXXXX"></div></div>
+            <div style="flex:1"><div class="field"><label>Contact email</label><input value="owner@flexfitness.np"></div>
+              <div class="field"><label>Platform plan</label><select><option>Pro — ₨ 7,000/mo</option><option>Starter — ₨ 3,500/mo</option></select></div>
+              <div class="field"><label>Status</label><select><option>Active</option><option>Trial</option><option>Suspended</option></select></div></div>
+          </div>
+          <div class="divider"></div>
+          <div class="sec-title">First owner account (auto-created)</div>
+          <div class="row">
+            <div style="flex:1"><div class="field"><label>Owner name</label><input value="Sujan Maharjan"></div></div>
+            <div style="flex:1"><div class="field"><label>Owner email</label><input value="sujan@flexfitness.np"></div></div>
+          </div>
+          <div class="note">Provisioning creates the tenant, the subdomain, and this owner in one transaction. Owner gets a temp password + setup link.</div>
+          <button class="btn" style="margin-top:12px">Provision gym</button>
+          <button class="btn ghost" style="margin-top:12px">Suspend gym</button>
+        </div>
+        <div class="card pad" style="flex:1;min-width:220px;text-align:center">
+          <div class="sec-title" style="text-align:left">Branding (per tenant)</div>
+          <div style="width:120px;height:120px;border-radius:16px;background:var(--pill-bg);display:grid;place-items:center;margin:8px auto 12px;font-family:Lora;font-weight:700;color:var(--brand);font-size:18px">FLEX<br>FITNESS</div>
+          <button class="btn sm ghost">Upload logo</button>
+          <div class="field" style="text-align:left;margin-top:14px"><label>Brand color</label><input value="#8B3D2E"></div>
+          <div class="note">Same UI everywhere — only the logo, name and color swap per gym at runtime.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLATFORM: OVERVIEW ===== -->
+  <section class="screen" id="p_overview">
+    <div class="top"><div><div class="crumb">Platform Owner</div><div class="ttl">Cross-gym overview</div></div>
+      <div class="who"><div class="avatar" style="background:#2a1c17">PO</div></div></div>
+    <div class="legend">Read-only, audited, and the ONLY place tenant scope is intentionally bypassed.</div>
+    <div class="body">
+      <div class="row" style="margin-bottom:18px">
+        <div class="card pad kpi"><div class="label">Members across platform</div><div class="v">1,184</div></div>
+        <div class="card pad kpi"><div class="label">Active gyms</div><div class="v">6</div></div>
+        <div class="card pad kpi"><div class="label">Platform MRR</div><div class="v">₨ 49,000</div><div class="d up">▲ 16%</div></div>
+        <div class="card pad kpi"><div class="label">Gyms overdue</div><div class="v" style="color:var(--danger)">1</div></div>
+      </div>
+      <div class="card pad">
+        <div class="sec-title">Members per gym</div>
+        <div style="display:grid;gap:12px">
+          <div><div style="display:flex;justify-content:space-between"><span>FlexFitness</span><span class="muted">312</span></div><div class="bar"><i style="width:100%"></i></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>Himalaya Fitness</span><span class="muted">241</span></div><div class="bar"><i style="width:77%"></i></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>PowerZone</span><span class="muted">188</span></div><div class="bar"><i style="width:60%"></i></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>Iron Temple</span><span class="muted">96</span></div><div class="bar"><i style="width:31%"></i></div></div>
+          <div><div style="display:flex;justify-content:space-between"><span>CoreLab</span><span class="muted">54</span></div><div class="bar"><i style="width:17%"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ADMIN LOGIN ===== -->
+  <section class="screen show" id="login">
+    <div class="legend">Admin / Staff &nbsp;›&nbsp; Login</div>
+    <div style="min-height:calc(100vh - 40px);display:grid;place-items:center;background:linear-gradient(135deg,#f7f3f0,#efe2da)">
+      <div class="card" style="width:360px;padding:34px 30px;text-align:center">
+        <div style="font-family:Lora;font-size:26px;font-weight:700;color:var(--brand)">FlexFitness</div>
+        <div class="note" style="margin:6px 0 4px">flexfitness.fittrack.np</div>
+        <div class="note" style="margin:0 0 22px">Staff & owner sign in</div>
+        <div class="field" style="text-align:left"><label>Email or phone</label><input value="owner@fittrack.np"></div>
+        <div class="field" style="text-align:left"><label>Password</label><input type="password" value="••••••••"></div>
+        <button class="btn" style="width:100%;margin-top:6px">Sign in</button>
+        <div class="note" style="margin-top:14px"><a style="color:var(--accent)">Forgot password?</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DASHBOARD ===== -->
+  <section class="screen" id="dash">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Dashboard</div></div>
+      <div class="who"><button class="btn sm ghost">Export</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="row" style="margin-bottom:18px">
+        <div class="card pad kpi"><div class="label">Active members</div><div class="v">312</div><div class="d up">▲ 14 this month</div></div>
+        <div class="card pad kpi"><div class="label">Revenue (Asar)</div><div class="v">₨ 6.2L</div><div class="d up">▲ 8% vs last month</div></div>
+        <div class="card pad kpi"><div class="label">Dues outstanding</div><div class="v" style="color:var(--danger)">₨ 84,500</div><div class="d down">41 members</div></div>
+        <div class="card pad kpi"><div class="label">In gym now</div><div class="v">27</div><div class="d muted">Peak today: 6–8 PM</div></div>
+      </div>
+      <div class="row">
+        <div class="card pad" style="flex:2;min-width:320px">
+          <div class="sec-title">Revenue — last 6 months (₨ thousands)</div>
+          <svg viewBox="0 0 520 200" width="100%" height="200">
+            <g fill="var(--brand)">
+              <rect x="20" y="120" width="50" height="60" rx="4"></rect>
+              <rect x="100" y="95" width="50" height="85" rx="4"></rect>
+              <rect x="180" y="105" width="50" height="75" rx="4"></rect>
+              <rect x="260" y="70" width="50" height="110" rx="4"></rect>
+              <rect x="340" y="85" width="50" height="95" rx="4"></rect>
+              <rect x="420" y="55" width="50" height="125" rx="4" fill="var(--brand-dk)"></rect>
+            </g>
+            <g fill="#9c8a80" font-size="11" font-family="Inter" text-anchor="middle">
+              <text x="45" y="195">Mgh</text><text x="125" y="195">Fgn</text><text x="205" y="195">Cht</text>
+              <text x="285" y="195">Bsk</text><text x="365" y="195">Jth</text><text x="445" y="195">Asr</text>
+            </g>
+          </svg>
+        </div>
+        <div class="card pad" style="flex:1;min-width:240px">
+          <div class="sec-title">At-risk members</div>
+          <div class="note" style="margin-bottom:10px">No visit in 14+ days</div>
+          <table><tbody>
+            <tr><td>Bishal Thapa</td><td class="muted">18 days</td></tr>
+            <tr><td>Anita Gurung</td><td class="muted">21 days</td></tr>
+            <tr><td>Rajan K.C.</td><td class="muted">16 days</td></tr>
+            <tr><td>Sita Lama</td><td class="muted">15 days</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBERS LIST ===== -->
+  <section class="screen" id="members">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Members</div></div>
+      <div class="who"><button class="btn" onclick="go('member')">+ Register member</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="card pad" style="margin-bottom:16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+        <input class="field" style="margin:0;flex:1;min-width:200px;padding:9px 11px;border:1px solid var(--line);border-radius:8px" placeholder="Search name or phone…">
+        <select style="padding:9px 11px;border:1px solid var(--line);border-radius:8px"><option>All status</option><option>Active</option><option>Expired</option><option>Frozen</option></select>
+        <select style="padding:9px 11px;border:1px solid var(--line);border-radius:8px"><option>All plans</option><option>Monthly</option><option>Annual</option></select>
+        <button class="btn sm ghost">Filter</button>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Code</th><th>Name</th><th>Plan</th><th>Expiry</th><th>Status</th><th>Dues</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>GYM-2026-0042</td><td>Prabin Shrestha</td><td>Monthly</td><td>2026-07-02</td><td><span class="pill ok">Active</span></td><td>—</td><td><button class="btn sm ghost" onclick="go('member')">View</button></td></tr>
+            <tr><td>GYM-2026-0039</td><td>Anita Gurung</td><td>Quarterly</td><td>2026-06-12</td><td><span class="pill warn">Expiring</span></td><td>—</td><td><button class="btn sm ghost" onclick="go('member')">View</button></td></tr>
+            <tr><td>GYM-2026-0031</td><td>Bishal Thapa</td><td>Monthly</td><td>2026-05-28</td><td><span class="pill dng">Expired</span></td><td>₨ 2,000</td><td><button class="btn sm ghost" onclick="go('member')">View</button></td></tr>
+            <tr><td>GYM-2026-0028</td><td>Sumitra Rai</td><td>Annual</td><td>2026-12-01</td><td><span class="pill ok">Active</span></td><td>—</td><td><button class="btn sm ghost" onclick="go('member')">View</button></td></tr>
+            <tr><td>GYM-2026-0021</td><td>Rajan K.C.</td><td>Monthly</td><td>2026-06-09</td><td><span class="pill mut">Frozen</span></td><td>—</td><td><button class="btn sm ghost" onclick="go('member')">View</button></td></tr>
+          </tbody>
+        </table>
+        <div class="pad note" style="display:flex;justify-content:space-between"><span>Showing 1–5 of 312</span><span>‹ 1 2 3 … 63 ›</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBER DETAIL / REGISTER ===== -->
+  <section class="screen" id="member">
+    <div class="top"><div><div class="crumb">Admin › Members</div><div class="ttl">Register / Member detail</div></div>
+      <div class="who"><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="row">
+        <div class="card pad" style="flex:2;min-width:340px">
+          <div class="sec-title">Member details</div>
+          <div class="row">
+            <div style="flex:1"><div class="field"><label>Full name</label><input value="Prabin Shrestha"></div>
+              <div class="field"><label>Phone</label><input value="9841XXXXXX"></div>
+              <div class="field"><label>Email</label><input value="prabin@example.com"></div></div>
+            <div style="flex:1"><div class="field"><label>Gender</label><select><option>Male</option><option>Female</option><option>Other</option></select></div>
+              <div class="field"><label>Date of birth</label><input value="1996-04-11"></div>
+              <div class="field"><label>Emergency contact</label><input value="9851XXXXXX"></div></div>
+          </div>
+          <div class="row">
+            <div style="flex:1"><div class="field"><label>Plan</label><select><option>Monthly — ₨ 2,000</option><option>Quarterly — ₨ 5,400</option><option>Annual — ₨ 18,000</option></select></div></div>
+            <div style="flex:1"><div class="field"><label>Price charged (discount allowed)</label><input value="2000"></div></div>
+          </div>
+          <div class="field"><label>Health notes (optional)</label><input placeholder="e.g. knee injury — avoid heavy squats"></div>
+          <button class="btn">Register & issue QR</button>
+          <span class="note" style="margin-left:10px">Sends welcome SMS + email automatically.</span>
+        </div>
+        <div class="card pad" style="flex:1;min-width:220px;text-align:center">
+          <div class="sec-title" style="text-align:left">Membership QR</div>
+          <div class="ph" style="width:80px;height:80px;border-radius:50%;background:var(--pill-bg);display:grid;place-items:center;margin:0 auto 12px;font-size:26px;color:var(--brand)">PS</div>
+          <div style="font-weight:600">Prabin Shrestha</div>
+          <div class="note" style="margin-bottom:14px">GYM-2026-0042</div>
+          <div class="qr" style="margin:0 auto"></div>
+          <div style="margin-top:14px"><button class="btn sm">Print</button> <button class="btn sm ghost">Regenerate</button></div>
+          <div class="note" style="margin-top:8px">Regenerating invalidates the old QR (lost-card case).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PLANS ===== -->
+  <section class="screen" id="plans">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Plans & Subscriptions</div></div>
+      <div class="who"><button class="btn">+ New plan</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="card" style="overflow:hidden;margin-bottom:18px">
+        <table>
+          <thead><tr><th>Plan</th><th>Duration</th><th>Price (₨)</th><th>Active members</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Monthly</td><td>30 days</td><td>2,000</td><td>184</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Quarterly</td><td>90 days</td><td>5,400</td><td>61</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Half-yearly</td><td>180 days</td><td>9,600</td><td>22</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Annual</td><td>365 days</td><td>18,000</td><td>33</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Student Monthly</td><td>30 days</td><td>1,500</td><td>12</td><td><span class="pill ok">Active</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card pad">
+        <div class="sec-title">Renew subscription — Prabin Shrestha</div>
+        <div class="row">
+          <div style="flex:1"><div class="field"><label>Plan</label><select><option>Monthly — ₨ 2,000</option></select></div></div>
+          <div style="flex:1"><div class="field"><label>Start</label><input value="2026-07-02"></div></div>
+          <div style="flex:1"><div class="field"><label>New expiry (auto)</label><input value="2026-08-01" disabled></div></div>
+        </div>
+        <div class="note">Renewing before expiry extends from the current end date; after expiry it starts today.</div>
+        <button class="btn" style="margin-top:10px">Renew</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== KIOSK ===== -->
+  <section class="screen" id="kiosk">
+    <div class="legend">Admin / Staff &nbsp;›&nbsp; Entrance Check-in Kiosk (fullscreen on the front-desk tablet)</div>
+    <div class="kiosk" style="min-height:calc(100vh - 40px)">
+      <div style="text-align:center">
+        <h2 style="color:#fff;font-size:24px;margin-bottom:6px">Scan your QR to check in</h2>
+        <div style="color:#d8b6a8;margin-bottom:24px">Hold your member QR up to the camera</div>
+        <div class="scanbox"><div class="scanline"></div><div style="color:#c98c79;font-size:13px">camera feed</div></div>
+        <div class="confirm">
+          <div class="ph">✓</div>
+          <div style="font-family:Lora;font-size:22px">Welcome, Prabin!</div>
+          <div style="margin-top:6px"><span class="pill ok">Checked in · 6:42 PM</span></div>
+          <div style="margin-top:8px;color:#d8b6a8;font-size:13px">Membership active · expires 2 Jul 2026</div>
+        </div>
+        <div style="margin-top:22px;background:rgba(198,40,40,.18);border:1px solid #c98c79;border-radius:10px;padding:10px 16px;color:#ffd9d2;font-size:13px;max-width:340px">
+          Example of an expired scan: <b>DUES PENDING — please renew at desk</b> (attendance still recorded & flagged)
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== ATTENDANCE ===== -->
+  <section class="screen" id="attend">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Attendance</div></div>
+      <div class="who"><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="row" style="margin-bottom:16px">
+        <div class="card pad kpi"><div class="label">In gym now</div><div class="v">27</div></div>
+        <div class="card pad kpi"><div class="label">Check-ins today</div><div class="v">143</div></div>
+        <div class="card pad kpi"><div class="label">Peak hour</div><div class="v" style="font-size:22px">6–8 PM</div></div>
+        <div class="card pad kpi"><div class="label">Flagged (expired) entries</div><div class="v" style="color:var(--danger)">5</div></div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Member</th><th>Date</th><th>Check-in</th><th>Check-out</th><th>Duration</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Prabin Shrestha</td><td>2026-06-16</td><td>6:42 PM</td><td><span class="muted">in gym</span></td><td>—</td><td><span class="pill ok">Active</span></td></tr>
+            <tr><td>Sumitra Rai</td><td>2026-06-16</td><td>6:18 PM</td><td>7:31 PM</td><td>1h 13m</td><td><span class="pill ok">Active</span></td></tr>
+            <tr><td>Bishal Thapa</td><td>2026-06-16</td><td>5:55 PM</td><td>6:48 PM</td><td>53m</td><td><span class="pill dng">Expired ⚑</span></td></tr>
+            <tr><td>Anita Gurung</td><td>2026-06-16</td><td>7:02 PM</td><td><span class="muted">in gym</span></td><td>—</td><td><span class="pill warn">Expiring</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PAYMENTS ===== -->
+  <section class="screen" id="pay">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Payments</div></div>
+      <div class="who"><button class="btn">+ Record payment</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="row">
+        <div class="card pad" style="flex:1;min-width:280px">
+          <div class="sec-title">Record a payment</div>
+          <div class="field"><label>Member</label><input value="Prabin Shrestha (GYM-2026-0042)"></div>
+          <div class="row"><div style="flex:1"><div class="field"><label>Amount (₨)</label><input value="2000"></div></div>
+            <div style="flex:1"><div class="field"><label>Channel</label><select><option>Cash</option><option>eSewa</option><option>Khalti</option><option>Bank transfer</option></select></div></div></div>
+          <div class="field"><label>For subscription</label><select><option>Monthly — Jul 2026</option></select></div>
+          <button class="btn">Save & print receipt</button>
+        </div>
+        <div class="card pad" style="flex:1.4;min-width:320px">
+          <div class="sec-title">Recent payments · Daily collection ₨ 38,400</div>
+          <div class="card" style="overflow:hidden">
+          <table>
+            <thead><tr><th>Receipt</th><th>Member</th><th>₨</th><th>Channel</th><th>By</th></tr></thead>
+            <tbody>
+              <tr><td>RC-2026-0918</td><td>Prabin S.</td><td>2,000</td><td>Cash</td><td>Desk1</td></tr>
+              <tr><td>RC-2026-0917</td><td>Sumitra R.</td><td>18,000</td><td>eSewa</td><td>Desk1</td></tr>
+              <tr><td>RC-2026-0916</td><td>Kiran B.</td><td>5,400</td><td>Khalti</td><td>Manager</td></tr>
+              <tr><td>RC-2026-0915</td><td>Maya T.</td><td>2,000</td><td>Cash</td><td>Desk2</td></tr>
+            </tbody>
+          </table></div>
+          <div class="note" style="margin-top:8px">Voids create a reversing entry — receipt numbers are never reused.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DUES ===== -->
+  <section class="screen" id="dues">
+    <div class="top"><div><div class="crumb">Admin › Reports</div><div class="ttl">Dues / Chase list</div></div>
+      <div class="who"><button class="btn ghost">Send all reminders</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="row" style="margin-bottom:16px">
+        <div class="card pad kpi"><div class="label">Total outstanding</div><div class="v" style="color:var(--danger)">₨ 84,500</div></div>
+        <div class="card pad kpi"><div class="label">Members owing</div><div class="v">41</div></div>
+        <div class="card pad kpi"><div class="label">Reminders sent today</div><div class="v">41</div><div class="d muted">auto via SMS + email</div></div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Member</th><th>Phone</th><th>Owed (₨)</th><th>Days overdue</th><th>Last reminded</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Bishal Thapa</td><td>9841XXXXXX</td><td>2,000</td><td>19</td><td>Today (SMS+email)</td><td><button class="btn sm">Remind</button></td></tr>
+            <tr><td>Gita Magar</td><td>9803XXXXXX</td><td>5,400</td><td>11</td><td>Today (SMS+email)</td><td><button class="btn sm">Remind</button></td></tr>
+            <tr><td>Hari Adhikari</td><td>9812XXXXXX</td><td>1,000</td><td>6</td><td>Today (SMS)</td><td><button class="btn sm">Remind</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REPORTS ===== -->
+  <section class="screen" id="reports">
+    <div class="top"><div><div class="crumb">Admin</div><div class="ttl">Reports & Accounting</div></div>
+      <div class="who"><button class="btn ghost">Export CSV</button><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="tabbar"><div class="on">Revenue</div><div>Expenses</div><div>Attendance</div><div>Member growth</div></div>
+      <div class="row" style="margin-bottom:18px">
+        <div class="card pad kpi"><div class="label">Revenue (Asar)</div><div class="v">₨ 6,21,400</div></div>
+        <div class="card pad kpi"><div class="label">Expenses (Asar)</div><div class="v">₨ 2,86,000</div></div>
+        <div class="card pad kpi"><div class="label">Net</div><div class="v up">₨ 3,35,400</div></div>
+      </div>
+      <div class="row">
+        <div class="card pad" style="flex:2;min-width:320px">
+          <div class="sec-title">Revenue by plan</div>
+          <div style="display:grid;gap:12px">
+            <div><div style="display:flex;justify-content:space-between"><span>Monthly</span><span class="muted">₨ 3,68,000</span></div><div class="bar"><i style="width:60%"></i></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Annual</span><span class="muted">₨ 1,62,000</span></div><div class="bar"><i style="width:26%"></i></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Quarterly</span><span class="muted">₨ 64,800</span></div><div class="bar"><i style="width:11%"></i></div></div>
+            <div><div style="display:flex;justify-content:space-between"><span>Student</span><span class="muted">₨ 18,000</span></div><div class="bar"><i style="width:3%"></i></div></div>
+          </div>
+        </div>
+        <div class="card pad" style="flex:1;min-width:240px">
+          <div class="sec-title">Expenses</div>
+          <table><tbody>
+            <tr><td>Salaries</td><td class="muted">₨ 1,60,000</td></tr>
+            <tr><td>Rent</td><td class="muted">₨ 80,000</td></tr>
+            <tr><td>Utilities</td><td class="muted">₨ 28,000</td></tr>
+            <tr><td>Equipment</td><td class="muted">₨ 18,000</td></tr>
+          </tbody></table>
+          <button class="btn sm" style="margin-top:10px">+ Add expense</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TEMPLATES ===== -->
+  <section class="screen" id="templates">
+    <div class="top"><div><div class="crumb">Admin › Settings</div><div class="ttl">Notification templates</div></div>
+      <div class="who"><div class="avatar">SO</div></div></div>
+    <div class="body">
+      <div class="card" style="overflow:hidden;margin-bottom:18px">
+        <table>
+          <thead><tr><th>Trigger</th><th>Email</th><th>SMS</th><th>In-app</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>Welcome</td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Expiring soon (7d / 1d)</td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Dues pending (daily)</td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><span class="pill ok">On</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+            <tr><td>Payment receipt</td><td><span class="pill ok">On</span></td><td><span class="pill mut">Off</span></td><td><span class="pill ok">On</span></td><td><button class="btn sm ghost">Edit</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card pad" style="max-width:560px">
+        <div class="sec-title">Edit: Dues pending — SMS</div>
+        <div class="field"><label>Message (variables: {name}, {amount}, {expiry})</label>
+          <input value="Hi {name}, your gym dues of Rs {amount} are pending. Please renew. — FitTrack"></div>
+        <div class="note">Routed through the Sparrow SMS driver. Swap providers in config without code changes.</div>
+        <button class="btn" style="margin-top:10px">Save template</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MEMBER: DASHBOARD ===== -->
+  <section class="screen" id="m_dash">
+    <div class="legend">Member Portal &nbsp;›&nbsp; Dashboard (same API powers the future mobile app)</div>
+    <div class="body"><div class="phone">
+      <div class="mhead">
+        <div style="font-size:13px;opacity:.85">Namaste,</div>
+        <div style="font-family:Lora;font-size:22px;font-weight:700">Prabin Shrestha</div>
+        <div style="margin-top:6px"><span class="pill ok">Active</span></div>
+      </div>
+      <div class="grid" style="margin-top:16px">
+        <div class="card pad"><div class="label">Days remaining</div><div style="font-family:Lora;font-size:34px;font-weight:700">16</div>
+          <div class="note">Expires 2 Jul 2026 &nbsp;·&nbsp; 18 Asar 2083 (BS)</div></div>
+        <div class="row">
+          <div class="card pad kpi"><div class="label">Outstanding dues</div><div class="v" style="font-size:24px;color:var(--ok)">₨ 0</div></div>
+          <div class="card pad kpi"><div class="label">Visits this month</div><div class="v" style="font-size:24px">14</div></div>
+        </div>
+        <div class="card pad" style="background:#fbf5f2"><div class="sec-title" style="font-size:14px">Renew early?</div>
+          <div class="note">Renewing before expiry extends from your current end date.</div>
+          <button class="btn sm" style="margin-top:8px">View plans</button></div>
+      </div>
+      <div class="mtabs">
+        <div class="on" onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===== MEMBER: QR ===== -->
+  <section class="screen" id="m_qr">
+    <div class="legend">Member Portal &nbsp;›&nbsp; My QR</div>
+    <div class="body"><div class="phone">
+      <div class="card pad" style="text-align:center">
+        <div class="sec-title">Your check-in QR</div>
+        <div class="qr" style="margin:14px auto 16px;width:190px;height:190px"></div>
+        <div style="font-weight:600">Prabin Shrestha</div>
+        <div class="note">GYM-2026-0042</div>
+        <div class="divider"></div>
+        <div class="note">Show this at the entrance scanner to check in and out.</div>
+        <button class="btn ghost sm" style="margin-top:12px">Lost access? Request new QR</button>
+        <div class="note" style="margin-top:6px">A new QR notifies the front desk and disables the old one.</div>
+      </div>
+      <div class="mtabs">
+        <div onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div class="on" onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===== MEMBER: ATTENDANCE ===== -->
+  <section class="screen" id="m_attend">
+    <div class="legend">Member Portal &nbsp;›&nbsp; My Attendance</div>
+    <div class="body"><div class="phone">
+      <div class="row" style="margin-bottom:14px">
+        <div class="card pad kpi"><div class="label">This month</div><div class="v" style="font-size:24px">14 visits</div></div>
+        <div class="card pad kpi"><div class="label">Streak</div><div class="v" style="font-size:24px">5 days</div></div>
+      </div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Date</th><th>In</th><th>Out</th><th>Duration</th></tr></thead>
+          <tbody>
+            <tr><td>16 Jun</td><td>6:42 PM</td><td class="muted">in gym</td><td>—</td></tr>
+            <tr><td>15 Jun</td><td>7:05 PM</td><td>8:20 PM</td><td>1h 15m</td></tr>
+            <tr><td>14 Jun</td><td>6:30 AM</td><td>7:40 AM</td><td>1h 10m</td></tr>
+            <tr><td>12 Jun</td><td>6:55 PM</td><td>8:02 PM</td><td>1h 07m</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mtabs">
+        <div onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div class="on" onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===== MEMBER: PAYMENTS ===== -->
+  <section class="screen" id="m_pay">
+    <div class="legend">Member Portal &nbsp;›&nbsp; My Payments</div>
+    <div class="body"><div class="phone">
+      <div class="card pad" style="margin-bottom:14px"><div class="label">Outstanding</div>
+        <div style="font-family:Lora;font-size:30px;font-weight:700;color:var(--ok)">₨ 0</div>
+        <div class="note">You're all paid up.</div></div>
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th>Date</th><th>For</th><th>₨</th><th></th></tr></thead>
+          <tbody>
+            <tr><td>2 Jun</td><td>Monthly</td><td>2,000</td><td><button class="btn sm ghost">Receipt</button></td></tr>
+            <tr><td>2 May</td><td>Monthly</td><td>2,000</td><td><button class="btn sm ghost">Receipt</button></td></tr>
+            <tr><td>3 Apr</td><td>Monthly</td><td>2,000</td><td><button class="btn sm ghost">Receipt</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="mtabs">
+        <div onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div class="on" onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===== MEMBER: NOTIF ===== -->
+  <section class="screen" id="m_notif">
+    <div class="legend">Member Portal &nbsp;›&nbsp; Notifications</div>
+    <div class="body"><div class="phone">
+      <div class="card pad" style="margin-bottom:10px"><span class="pill warn">Expiring</span>
+        <div style="margin-top:8px;font-weight:600">Your membership expires in 16 days</div>
+        <div class="note">Renew before 2 Jul to keep your streak. Tap to view plans.</div></div>
+      <div class="card pad" style="margin-bottom:10px"><span class="pill info">Receipt</span>
+        <div style="margin-top:8px;font-weight:600">Payment received — ₨ 2,000</div>
+        <div class="note">2 Jun 2026 · Monthly · Receipt RC-2026-0918</div></div>
+      <div class="card pad" style="opacity:.7"><span class="pill mut">Welcome</span>
+        <div style="margin-top:8px;font-weight:600">Welcome to FitTrack Nepal!</div>
+        <div class="note">Your QR is ready. Scan it at the entrance to check in.</div></div>
+      <div class="mtabs">
+        <div onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  <!-- ===== MEMBER: PROFILE ===== -->
+  <section class="screen" id="m_profile">
+    <div class="legend">Member Portal &nbsp;›&nbsp; My Profile</div>
+    <div class="body"><div class="phone">
+      <div class="card pad">
+        <div style="text-align:center;margin-bottom:14px">
+          <div class="ph" style="width:74px;height:74px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:24px;margin:0 auto 8px">PS</div>
+          <div style="font-weight:600">Prabin Shrestha</div><div class="note">Member since Apr 2026</div>
+        </div>
+        <div class="field"><label>Phone</label><input value="9841XXXXXX"></div>
+        <div class="field"><label>Address</label><input value="Tahachal, Kathmandu"></div>
+        <div class="field"><label>Emergency contact</label><input value="9851XXXXXX"></div>
+        <button class="btn" style="width:100%">Save changes</button>
+        <div class="note" style="text-align:center;margin-top:10px">Name & plan changes are handled at the front desk.</div>
+      </div>
+      <div class="mtabs">
+        <div onclick="go('m_dash')"><span class="ic">●</span>Home</div>
+        <div onclick="go('m_qr')"><span class="ic">▢</span>My QR</div>
+        <div onclick="go('m_attend')"><span class="ic">✓</span>Visits</div>
+        <div onclick="go('m_pay')"><span class="ic">₨</span>Pay</div>
+        <div class="on" onclick="go('m_profile')"><span class="ic">☺</span>Me</div>
+      </div>
+    </div></div>
+  </section>
+
+  </main>
+</div>
+<script>
+function go(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('show'));
+  document.getElementById(id).classList.add('show');
+  document.querySelectorAll('.rail a').forEach(a=>a.classList.toggle('active',a.dataset.s===id));
+  document.querySelector('.stage').scrollTop=0;
+}
+document.querySelectorAll('.rail a').forEach(a=>a.addEventListener('click',()=>go(a.dataset.s)));
+</script>
+</body>
+</html>
