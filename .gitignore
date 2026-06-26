@@ -47,5 +47,6 @@
 
 # OS files
 /frontend/.DS_Store
-/frontend/Thumbs.db.idea/
+/frontend/Thumbs.db
+.idea/
 **/*.php~
